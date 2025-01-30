@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:dars_3/features/auth/presentation/controller/auth_provider.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -14,6 +15,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   bool _isPasswordHidden = true;
+  String selectedCountryCode = "+998";
+  bool _isValidEmail(String email) {
+    return email.endsWith("@gmail.com") || email.endsWith("@email.com");
+  }
 
   @override
   void dispose() {
@@ -60,7 +65,35 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   keyboardType: TextInputType.phone,
                   decoration: InputDecoration(
                     labelText: "Phone",
-                    prefixIcon: Icon(Icons.phone, color: Colors.black54),
+                    prefixIcon: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      child: DropdownButtonHideUnderline(
+                        child: DropdownButton<String>(
+                          value: selectedCountryCode,
+                          onChanged: (String? newValue) {
+                            setState(() {
+                              selectedCountryCode = newValue!;
+                            });
+                          },
+                          items: [
+                            "+998",
+                            "+1",
+                            "+44",
+                            "+91",
+                            "+86",
+                            "+33",
+                            "+49",
+                            "+7"
+                          ].map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child:
+                                  Text(value, style: TextStyle(fontSize: 15)),
+                            );
+                          }).toList(),
+                        ),
+                      ),
+                    ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                       borderSide: BorderSide(color: Colors.grey, width: 2),
@@ -71,6 +104,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                   ),
                 ),
+
                 SizedBox(height: 10),
                 TextField(
                   controller: emailController,
@@ -80,13 +114,30 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     prefixIcon: Icon(Icons.email, color: Colors.black54),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(color: Colors.grey, width: 2),
+                      borderSide: BorderSide(
+                        color: _isValidEmail(emailController.text)
+                            ? Colors.grey
+                            : Colors.red,
+                        width: 2,
+                      ),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(color: Colors.grey, width: 3),
+                      borderSide: BorderSide(
+                        color: _isValidEmail(emailController.text)
+                            ? Colors.grey
+                            : Colors.red,
+                        width: 3,
+                      ),
                     ),
+                    errorText: emailController.text.isNotEmpty &&
+                            !_isValidEmail(emailController.text)
+                        ? "Email @gmail.com yoki @email.com bilan tugashi kerak"
+                        : null,
                   ),
+                  onChanged: (value) {
+                    setState(() {}); // UI yangilash
+                  },
                 ),
                 SizedBox(height: 10),
                 TextField(
@@ -137,11 +188,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     fixedSize: Size(340, 50),
                   ),
                   onPressed: () async {
+                    String fullPhoneNumber =
+                        "$selectedCountryCode${phoneController.text.trim()}";
+
                     await authProvider.register(
-                      phoneNumber: phoneController.text.trim(),
+                      phoneNumber: fullPhoneNumber,
                       email: emailController.text.trim(),
                       password: passwordController.text.trim(),
                     );
+
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: Text(authProvider.message),

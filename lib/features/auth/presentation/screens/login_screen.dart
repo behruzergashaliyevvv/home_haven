@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:dars_3/features/auth/presentation/controller/auth_provider.dart';
 import 'package:dars_3/features/auth/presentation/screens/register_screen.dart';
 import 'package:dars_3/features/home/presentation/screens/home_screen.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -15,6 +16,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final phoneController = TextEditingController();
   final passwordController = TextEditingController();
   bool _isPasswordHidden = true;
+  String selectedCountryCode = "+998";
 
   @override
   void dispose() {
@@ -62,8 +64,36 @@ class _LoginScreenState extends State<LoginScreen> {
                   controller: phoneController,
                   keyboardType: TextInputType.phone,
                   decoration: InputDecoration(
-                    labelText: "Phone Number",
-                    prefixIcon: Icon(Icons.phone, color: Colors.black54),
+                    labelText: "Phone",
+                    prefixIcon: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      child: DropdownButtonHideUnderline(
+                        child: DropdownButton<String>(
+                          value: selectedCountryCode,
+                          onChanged: (String? newValue) {
+                            setState(() {
+                              selectedCountryCode = newValue!;
+                            });
+                          },
+                          items: [
+                            "+998", // Uzbekistan
+                            "+1", // USA
+                            "+44", // UK
+                            "+91", // India
+                            "+86", // China
+                            "+33", // France
+                            "+49", // Germany
+                            "+7", // Russia
+                          ].map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child:
+                                  Text(value, style: TextStyle(fontSize: 15)),
+                            );
+                          }).toList(),
+                        ),
+                      ),
+                    ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                       borderSide: BorderSide(color: Colors.grey, width: 2),
@@ -73,6 +103,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       borderSide: BorderSide(color: Colors.grey, width: 3),
                     ),
                   ),
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                 ),
                 SizedBox(height: 10),
                 TextField(
@@ -119,17 +150,17 @@ class _LoginScreenState extends State<LoginScreen> {
                 SizedBox(height: 10),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.greenAccent,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      fixedSize: Size(
-                        340,
-                        50,
-                      )),
+                    backgroundColor: Colors.greenAccent,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    fixedSize: Size(340, 50),
+                  ),
                   onPressed: () async {
+                    final fullPhoneNumber =
+                        "$selectedCountryCode${phoneController.text.trim()}";
                     await authProvider.loginWithPhone(
-                      phoneNumber: phoneController.text.trim(),
+                      phoneNumber: fullPhoneNumber,
                       password: passwordController.text.trim(),
                     );
 
@@ -141,10 +172,11 @@ class _LoginScreenState extends State<LoginScreen> {
 
                     if (authProvider.message.contains("succcesfuly")) {
                       Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => HomeScreen(),
-                          ));
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => HomeScreen(),
+                        ),
+                      );
                     }
                   },
                   child: Text(
