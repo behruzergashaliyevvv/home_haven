@@ -38,25 +38,32 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Text("Banners empty"),
               );
             }
-            return CarouselSlider(
-              disableGesture: true,
-              items: List.generate(
-                homeProvider.banners?.data?.length ?? 0,
-                (index) {
-                  final BannerData bannerData =
-                      homeProvider.banners!.data![index];
-                  return buildCarouselItem(bannerData: bannerData);
-                },
-              ),
-              options: CarouselOptions(
-                height: 200.0,
-                enlargeCenterPage: true,
-                autoPlay: true,
-                aspectRatio: 16 / 8,
-                autoPlayCurve: Curves.fastOutSlowIn,
-                enableInfiniteScroll: true,
-                autoPlayAnimationDuration: Duration(seconds: 2),
-                viewportFraction: 0.8,
+            return SingleChildScrollView(
+              child: Column(
+                children: [
+                  SizedBox(height: 10),
+                  CarouselSlider(
+                    disableGesture: true,
+                    items: List.generate(
+                      homeProvider.banners?.data?.length ?? 0,
+                      (index) {
+                        final BannerData bannerData =
+                            homeProvider.banners!.data![index];
+                        return buildCarouselItem(bannerData: bannerData);
+                      },
+                    ),
+                    options: CarouselOptions(
+                      height: 200.0,
+                      enlargeCenterPage: true,
+                      autoPlay: true,
+                      aspectRatio: 16 / 8,
+                      autoPlayCurve: Curves.fastOutSlowIn,
+                      enableInfiniteScroll: true,
+                      autoPlayAnimationDuration: Duration(seconds: 2),
+                      viewportFraction: 0.8,
+                    ),
+                  ),
+                ],
               ),
             );
           },
