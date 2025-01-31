@@ -7,4 +7,5 @@ class NetworkConstants {
 
   // banners url
   static String bannerUrl = "$baseUrl/api/banner";
+  static String productUrl = "$baseUrl/api/product";
 }

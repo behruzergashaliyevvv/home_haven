@@ -7,7 +7,6 @@ class BannerEntity {
     this.pagination,
   });
 }
-
 class BannerData {
   final String? id;
   final String? title;
