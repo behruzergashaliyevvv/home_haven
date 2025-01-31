@@ -6,15 +6,15 @@ import 'package:dars_3/features/home/domain/repositories/product_repo.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dars_3/core/common/exceptions/custom_exception.dart';
 
-class ProductRepoImpl implements ProductRepo {
-  final ProductRemoteDataSource productRemoteDataSource;
+class ProRepoImpl implements ProRepo {
+  final ProRemoteDataSource proRemoteDataSource;
 
-  ProductRepoImpl({required this.productRemoteDataSource});
+  ProRepoImpl({required this.proRemoteDataSource});
 
   @override
   Future<Either<dynamic, ProductEntity>> getProducts() async {
     try {
-      final result = await productRemoteDataSource.getProducts();
+      final result = await proRemoteDataSource.getProducts();
       return Right(ProductMapper.mapProductEntity(result));
     } on ServerException catch (e) {
       return Left(e.errorMessage);

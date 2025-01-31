@@ -1,5 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:dars_3/features/home/presentation/controllers/product_provider.dart';
+import 'package:dars_3/features/home/presentation/controllers/pro_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:dars_3/core/common/app/services/injcetion_container.dart';
 import 'package:dars_3/features/home/domain/entities/banner_entity.dart';
@@ -91,7 +91,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ],
                     ),
                   ),
-                  Consumer<ProductProvider>(
+                  Consumer<ProProvider>(
                     builder: (context, productProvider, child) {
                       if (productProvider.isLoading) {
                         print(productProvider.isLoading);

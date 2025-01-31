@@ -6,11 +6,11 @@ import 'package:dars_3/features/home/data/models/product_model.dart';
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-abstract class ProductRemoteDataSource {
+abstract class ProRemoteDataSource {
   Future<ProductModel?> getProducts();
 }
 
-class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
+class ProRemoteDataSourceImpl implements ProRemoteDataSource {
   final dio = getIt<Dio>();
 
   @override

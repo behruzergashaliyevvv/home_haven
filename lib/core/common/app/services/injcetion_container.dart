@@ -59,7 +59,7 @@ import 'package:dars_3/features/home/data/datasource/product_remote_data_source.
 import 'package:dars_3/features/home/data/repositories/product_repo_ompl.dart';
 import 'package:dars_3/features/home/domain/repositories/product_repo.dart';
 import 'package:dars_3/features/home/domain/usecases/get_products_usecase.dart';
-import 'package:dars_3/features/home/presentation/controllers/product_provider.dart';
+import 'package:dars_3/features/home/presentation/controllers/pro_provider.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -116,7 +116,7 @@ Future<void> homeInit() async {
 Future<void> productInit() async {
   getIt
     ..registerLazySingleton<GetProductsUsecase>(() => GetProductsUsecase(productRepo: getIt()))
-    ..registerLazySingleton<ProductRepo>(() => ProductRepoImpl(productRemoteDataSource: getIt()))
-    ..registerLazySingleton<ProductRemoteDataSource>(() => ProductRemoteDataSourceImpl())
-    ..registerLazySingleton<ProductProvider>(() => ProductProvider());
+    ..registerLazySingleton<ProRepo>(() => ProRepoImpl(proRemoteDataSource: getIt()))
+    ..registerLazySingleton<ProRemoteDataSource>(() => ProRemoteDataSourceImpl())
+    ..registerLazySingleton<ProProvider>(() => ProProvider());
 }

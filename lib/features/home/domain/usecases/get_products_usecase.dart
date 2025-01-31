@@ -3,7 +3,7 @@ import 'package:dars_3/features/home/domain/repositories/product_repo.dart';
 import 'package:dartz/dartz.dart';
 
 class GetProductsUsecase {
-  final ProductRepo productRepo;
+  final ProRepo productRepo;
 
   GetProductsUsecase({required this.productRepo});
 

@@ -4,7 +4,7 @@ import 'package:dars_3/features/home/domain/usecases/get_products_usecase.dart';
 import 'package:flutter/foundation.dart';
 import 'package:dars_3/core/common/app/services/injcetion_container.dart';
 
-class ProductProvider extends ChangeNotifier {
+class ProProvider extends ChangeNotifier {
   final productUseCase = getIt<GetProductsUsecase>();
 
   bool isLoading = false;
