@@ -83,17 +83,16 @@ import 'package:dars_3/features/home/presentation/controllers/home_controller.da
 final getIt = GetIt.instance;
 
 Future<void> initInjection() async {
-  // Core dependencies
   getIt.registerLazySingleton<Dio>(() => Dio());
   final prefs = await SharedPreferences.getInstance();
   getIt.registerLazySingleton<SharedPreferences>(() => prefs);
 
   await authInit();
   await homeInit();
-  await productInit(); // ✅ Product uchun injection qo‘shildi
+  await productInit();
 }
 
-// Auth dependency injection
+
 Future<void> authInit() async {
   getIt
     ..registerLazySingleton<LoginUsecase>(() => LoginUsecase(authRepo: getIt()))
@@ -103,7 +102,7 @@ Future<void> authInit() async {
     ..registerLazySingleton<AuthProvider>(() => AuthProvider());
 }
 
-// Home dependency injection
+
 Future<void> homeInit() async {
   getIt
     ..registerLazySingleton<GetBannersUsecase>(() => GetBannersUsecase(homeRepo: getIt()))
@@ -112,7 +111,6 @@ Future<void> homeInit() async {
     ..registerLazySingleton<HomeProvider>(() => HomeProvider());
 }
 
-// ✅ Product dependency injection
 Future<void> productInit() async {
   getIt
     ..registerLazySingleton<GetProductsUsecase>(() => GetProductsUsecase(productRepo: getIt()))
