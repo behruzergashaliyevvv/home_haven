@@ -133,13 +133,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                         CrossAxisAlignment.center,
                                     children: [
                                       Image.network(
-                                        product.image ?? '', // TO‘G‘RILANDI!
+                                        product.image ?? '',
                                         height: 80,
                                         fit: BoxFit.cover,
                                       ),
                                       SizedBox(height: 5),
                                       Text(
-                                        product.title ?? '', // TO‘G‘RILANDI!
+                                        product.name ?? '', 
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 14,
@@ -149,7 +149,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       ),
                                       SizedBox(height: 5),
                                       Text(
-                                        "\$${product.discountPrice?.toStringAsFixed(2) ?? ''}",
+                                        "\$${product.price?.toStringAsFixed(2) ?? ''}",
                                         style: TextStyle(
                                           fontSize: 16,
                                           fontWeight: FontWeight.bold,
@@ -158,7 +158,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       ),
                                       SizedBox(height: 3),
                                       Text(
-                                        "\$${product.originalPrice?.toStringAsFixed(2) ?? ''}",
+                                        "\$${product.price?.toStringAsFixed(2) ?? ''}",
                                         style: TextStyle(
                                           fontSize: 12,
                                           decoration:

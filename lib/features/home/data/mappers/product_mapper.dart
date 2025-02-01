@@ -1,12 +1,11 @@
-import 'package:dars_3/features/home/data/models/banner_model.dart' as banner;
 import 'package:dars_3/features/home/data/models/product_model.dart' as product;
-import 'package:dars_3/features/home/domain/entities/banner_entity.dart';
+import 'package:dars_3/features/home/data/models/product_model.dart';
 import 'package:dars_3/features/home/domain/entities/product_entity.dart';
 
 class ProductMapper {
-  static ProductEntity mapProductEntity(product.ProductModel? model) {
+  static ProductEntity mapProductEntity(ProductModel? model) {
     return ProductEntity(
-      products: model?.products
+      data: model?.data
           ?.map(
             (e) => mapProductData(e),
           )
@@ -15,19 +14,19 @@ class ProductMapper {
     );
   }
 
-  // Product data
-  static ProductData mapProductData(product.ProductModelData model) {
+  static ProductData mapProductData(ProductModelData model) {
     return ProductData(
       id: model.id,
-      title: model.title,
-      category: model.category,
+      name: model.name,
       shortDescription: model.shortDescription,
+      icon: model.icon,
       image: model.image,
-      date: model.date,
+      price: model.price,
+      rating: model.rating
     );
   }
 
-  static Pagination mapPaginationData(product.PaginationModel? model) {
+  static Pagination mapPaginationData(PaginationModel? model) {
     return Pagination(
       currentPage: model?.currentPage,
       nextPage: model?.nextPage,

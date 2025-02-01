@@ -35,7 +35,7 @@ Widget buildProductItem({
         ),
         SizedBox(height: 5),
         Text(
-          product.title ?? '', // Product title
+          product.name ?? '',
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 14,
@@ -45,7 +45,7 @@ Widget buildProductItem({
         ),
         SizedBox(height: 5),
         Text(
-          "\$${product.discountPrice?.toStringAsFixed(2) ?? ''}",
+          "\$${product.price?.toStringAsFixed(2) ?? ''}",
           style: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.bold,
@@ -54,7 +54,7 @@ Widget buildProductItem({
         ),
         SizedBox(height: 3),
         Text(
-          "\$${product.originalPrice?.toStringAsFixed(2) ?? ''}",
+          "\$${product.price?.toStringAsFixed(2) ?? ''}",
           style: TextStyle(
             fontSize: 12,
             decoration: TextDecoration.lineThrough,

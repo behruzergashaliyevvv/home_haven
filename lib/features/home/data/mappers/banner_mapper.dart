@@ -13,7 +13,7 @@ class BannerMapper {
     );
   }
 
-  // banner data
+
   static BannerData mapBannerData(BannerModelData model) {
     return BannerData(
       category: model.category,

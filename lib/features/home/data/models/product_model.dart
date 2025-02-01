@@ -1,7 +1,12 @@
-import 'package:dars_3/features/home/domain/entities/banner_entity.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'product_model.g.dart';
+
+@JsonSerializable()
 class ProductModel {
+  @JsonKey(name: "data")
   final List<ProductModelData>? products;
+  @JsonKey(name: "pagination")
   final PaginationModel? paginationModel;
 
   ProductModel({
@@ -9,50 +14,59 @@ class ProductModel {
     this.paginationModel,
   });
 
-  factory ProductModel.fromJson(Map<String, dynamic> json) {
-    return ProductModel(
-      products: (json['data'] as List<dynamic>?)
-          ?.map((e) => ProductModelData.fromJson(e))
-          .toList(),
-      paginationModel: PaginationModel.fromJson(json['pagination']),
-    );
-  }
+  factory ProductModel.fromJson(Map<String, dynamic> json) =>
+      _$ProductModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ProductModelToJson(this);
 }
 
+@JsonSerializable()
 class ProductModelData {
+  @JsonKey(name: "id")
   final String? id;
-  final String? title;
-  final String? category;
+  @JsonKey(name: "name")
+  final String? name;
+  @JsonKey(name: "short_description")
   final String? shortDescription;
+  @JsonKey(name: "icon")
+  final String? icon;
+  @JsonKey(name: "image")
   final String? image;
-  final String? date;
+  @JsonKey(name: "price")
+  final double? price;
+  @JsonKey(name: "rating")
+  final double? rating;
+  @JsonKey(name: "colors")
+  final double? colors;
 
   ProductModelData({
     this.id,
-    this.title,
-    this.category,
+    this.name,
     this.shortDescription,
+    this.icon,
     this.image,
-    this.date,
+    this.price,
+    this.rating,
+    this.colors,
   });
 
-  factory ProductModelData.fromJson(Map<String, dynamic> json) {
-    return ProductModelData(
-      id: json['id'],
-      title: json['title'],
-      category: json['category'],
-      shortDescription: json['short_description'],
-      image: json['image'],
-      date: json['date'],
-    );
-  }
+  factory ProductModelData.fromJson(Map<String, dynamic> json) =>
+      _$ProductModelDataFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ProductModelDataToJson(this);
 }
 
+@JsonSerializable()
 class PaginationModel {
+  @JsonKey(name: "total_records")
   final int? totalRecords;
+  @JsonKey(name: "current_page")
   final int? currentPage;
+  @JsonKey(name: "total_pages")
   final int? totalPages;
+  @JsonKey(name: "next_page")
   final dynamic nextPage;
+  @JsonKey(name: "prev_page")
   final dynamic prevPage;
 
   PaginationModel({
@@ -63,13 +77,8 @@ class PaginationModel {
     this.prevPage,
   });
 
-  factory PaginationModel.fromJson(Map<String, dynamic> json) {
-    return PaginationModel(
-      totalRecords: json['total_records'],
-      currentPage: json['current_page'],
-      totalPages: json['total_pages'],
-      nextPage: json['next_page'],
-      prevPage: json['prev_page'],
-    );
-  }
+  factory PaginationModel.fromJson(Map<String, dynamic> json) =>
+      _$PaginationModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$PaginationModelToJson(this);
 }
