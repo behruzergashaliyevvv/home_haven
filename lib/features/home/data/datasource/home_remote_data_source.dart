@@ -1,4 +1,3 @@
-import 'package:dars_3/features/home/data/models/product_model.dart';
 import 'package:dio/dio.dart';
 import 'package:dars_3/core/common/app/services/injcetion_container.dart';
 import 'package:dars_3/core/common/exceptions/custom_exception.dart';
@@ -9,13 +8,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class HomeRemoteDataSource {
   Future<BannerModel?> getBanners();
-  // Future<ProductModel?> getProducts();
 }
 
 class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
   final dio = getIt<Dio>();
 
   @override
+  // ignore: body_might_complete_normally_nullable
   Future<BannerModel?> getBanners() async {
     final String? token =
         getIt<SharedPreferences>().getString(PrefsKeys.tokenKey);
@@ -34,6 +33,4 @@ class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
       );
     }
   }
-
-  
 }

@@ -1,10 +1,8 @@
-import 'package:dars_3/features/home/domain/entities/banner_entity.dart';
-
-class ProductEntity {
+class ProductEntiti {
   final List<ProductData>? data;
   final Pagination? pagination;
 
-  ProductEntity({
+  ProductEntiti({
     this.data,
     this.pagination,
   });
@@ -13,24 +11,65 @@ class ProductEntity {
 class ProductData {
   final String? id;
   final String? name;
+  final String? description;
   final String? shortDescription;
   final String? icon;
-  final String? image;
+  final List<String>? image;
+  final int? quintity;
   final double? price;
+  final int? discount;
   final double? rating;
-  final double? colors;
-  
-  ProductData({
+  final int? ratingCount;
+  final Colors? colors;
+  final Size? size;
+  final String? category;
+
+  ProductData( {
     this.id,
     this.name,
+    this.description,
     this.shortDescription,
     this.icon,
     this.image,
+    this.quintity,
     this.price,
+    this.discount,
     this.rating,
+    this.ratingCount,
     this.colors,
+    this.size,
+    this.category,
   });
 }
+
+class Colors {
+  final String? name;
+  final String? colorHexFlutter;
+
+  Colors({
+    this.name,
+    this.colorHexFlutter,
+  });
+}
+
+class Size {
+  final int? width;
+  final int? depth;
+  final int? heigth;
+  final int? seatWidth;
+  final int? seatDepth;
+  final int? seatHeigth;
+
+  Size({
+    this.width,
+    this.depth,
+    this.heigth,
+    this.seatWidth,
+    this.seatDepth,
+    this.seatHeigth,
+  });
+}
+
 class Pagination {
   final int? totalRecords;
   final int? currentPage;

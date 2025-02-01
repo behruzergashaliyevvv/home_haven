@@ -13,7 +13,7 @@ class BannerMapper {
     );
   }
 
-
+  // banner data
   static BannerData mapBannerData(BannerModelData model) {
     return BannerData(
       category: model.category,
@@ -31,6 +31,6 @@ class BannerMapper {
         nextPage: model?.nextPage,
         prevPage: model?.prevPage,
         totalPages: model?.totalPages,
-        totalRecords: model?.totalRecords);
+        totalRecords: model?.totalRecords,);
   }
 }

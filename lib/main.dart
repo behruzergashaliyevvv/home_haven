@@ -1,4 +1,3 @@
-import 'package:dars_3/features/home/presentation/controllers/pro_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:dars_3/core/common/app/services/injcetion_container.dart';
 import 'package:dars_3/core/utils/constants/prefs_keys.dart';
@@ -27,9 +26,6 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => getIt<HomeProvider>(),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => getIt<ProProvider>(),  // ✅ SHU YERGA QO‘SHING
         ),
       ],
       child: MaterialApp(

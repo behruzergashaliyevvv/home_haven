@@ -1,5 +1,6 @@
+// ignore_for_file: unused_local_variable, non_constant_identifier_names
+
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:dars_3/features/home/presentation/controllers/pro_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:dars_3/core/common/app/services/injcetion_container.dart';
 import 'package:dars_3/features/home/domain/entities/banner_entity.dart';
@@ -18,185 +19,166 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    final homeProvider = getIt<HomeProvider>()..getBanners();
+    final homeProvider = getIt<HomeProvider>()
+      ..getBanners()
+      ..getProducts();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Consumer<HomeProvider>(
-          builder: (context, homeProvider, child) {
-            if (homeProvider.isLoading) {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            }
+      body: Column(
+        children: [
+          SafeArea(
+            child: Consumer<HomeProvider>(
+              builder: (context, homeProvider, child) {
+                if (homeProvider.isLoading) {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
 
-            if (homeProvider.banners?.data != null &&
-                homeProvider.banners!.data!.isEmpty) {
-              return Center(
-                child: Text("Banners empty"),
-              );
-            }
-            return SingleChildScrollView(
-              child: Column(
-                children: [
-                  SizedBox(height: 10),
-                  CarouselSlider(
-                    disableGesture: true,
-                    items: List.generate(
-                      homeProvider.banners?.data?.length ?? 0,
-                      (index) {
-                        final BannerData bannerData =
-                            homeProvider.banners!.data![index];
-                        return buildCarouselItem(bannerData: bannerData);
-                      },
-                    ),
-                    options: CarouselOptions(
-                      height: 200.0,
-                      enlargeCenterPage: true,
-                      autoPlay: true,
-                      aspectRatio: 16 / 8,
-                      autoPlayCurve: Curves.fastOutSlowIn,
-                      enableInfiniteScroll: true,
-                      autoPlayAnimationDuration: Duration(seconds: 2),
-                      viewportFraction: 0.8,
-                    ),
-                  ),
-                  SizedBox(height: 15),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 15, right: 15),
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Special Offers",
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 24),
-                            ),
-                            Text(
-                              "See more",
-                              style: TextStyle(
-                                color: Color.fromRGBO(21, 102, 81, 1),
-                                fontSize: 14,
-                              ),
-                            )
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  Consumer<ProProvider>(
-                    builder: (context, productProvider, child) {
-                      if (productProvider.isLoading) {
-                        print(productProvider.isLoading);
-                        return Center(child: CircularProgressIndicator());
-                      }
-
-                      if (productProvider.products?.data == null ||
-                          productProvider.products!.data!.isEmpty) {
-                        return Center(child: Text("No Products Available"));
-                      }
-
-                      return SizedBox(
-                        height: 200,
-                        child: SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Row(
-                            children: List.generate(
-                              productProvider.products!.data!.length,
-                              (index) {
-                                final product =
-                                    productProvider.products!.data![index];
-                                return Container(
-                                  width: 150,
-                                  margin: EdgeInsets.only(right: 10),
-                                  padding: EdgeInsets.all(10),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    color: Colors.white,
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey.withOpacity(0.2),
-                                        spreadRadius: 2,
-                                        blurRadius: 5,
-                                      ),
-                                    ],
-                                  ),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Image.network(
-                                        product.image ?? '',
-                                        height: 80,
-                                        fit: BoxFit.cover,
-                                      ),
-                                      SizedBox(height: 5),
-                                      Text(
-                                        product.name ?? '', 
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 14,
-                                        ),
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                      SizedBox(height: 5),
-                                      Text(
-                                        "\$${product.price?.toStringAsFixed(2) ?? ''}",
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.red,
-                                        ),
-                                      ),
-                                      SizedBox(height: 3),
-                                      Text(
-                                        "\$${product.price?.toStringAsFixed(2) ?? ''}",
-                                        style: TextStyle(
-                                          fontSize: 12,
-                                          decoration:
-                                              TextDecoration.lineThrough,
-                                          color: Colors.grey,
-                                        ),
-                                      ),
-                                      SizedBox(height: 5),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Icon(Icons.star,
-                                              color: Colors.orange, size: 14),
-                                          SizedBox(width: 3),
-                                          Text(
-                                            product.rating
-                                                    ?.toStringAsFixed(1) ??
-                                                '',
-                                            style: TextStyle(fontSize: 12),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                        ),
-                      );
+                if (homeProvider.banners?.data != null &&
+                    homeProvider.banners!.data!.isEmpty) {
+                  return Center(
+                    child: Text("Banners empty"),
+                  );
+                }
+                return CarouselSlider(
+                  disableGesture: true,
+                  items: List.generate(
+                    homeProvider.banners?.data?.length ?? 0,
+                    (index) {
+                      final BannerData bannerData =
+                          homeProvider.banners!.data![index];
+                      return buildCarouselItem(bannerData: bannerData);
                     },
                   ),
-                ],
-              ),
-            );
-          },
-        ),
+                  options: CarouselOptions(
+                    height: 200.0,
+                    enlargeCenterPage: true,
+                    autoPlay: true,
+                    aspectRatio: 16 / 8,
+                    autoPlayCurve: Curves.fastOutSlowIn,
+                    enableInfiniteScroll: true,
+                    autoPlayAnimationDuration: Duration(seconds: 2),
+                    viewportFraction: 0.8,
+                  ),
+                );
+              },
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Special Offers",
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w800,
+                      ),
+                    ),
+                    Text(
+                      "See More",
+                      style: TextStyle(
+                        color: Color(0xFF156651),
+                        fontSize: 14,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    )
+                  ],
+                ),
+                Container(
+                  margin: const EdgeInsets.only(top: 20),
+                  width: double.infinity,
+                  height: 270,
+                  decoration: BoxDecoration(
+                    // color: const Color.fromARGB(255, 144, 37, 37),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Consumer<HomeProvider>(
+                    builder: (context, homeProvider, child) {
+                      if (homeProvider.products?.data?.isNotEmpty ?? false) {
+                        return ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: homeProvider.products!.data!.length,
+                          itemBuilder: (context, index) {
+                            final product = homeProvider.products!.data![index];
+                            return Container(
+                              width: 160,
+                              margin: const EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                color: const Color.fromARGB(143, 156, 155, 155),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(10),
+                                    child: Image.network(
+                                      "https://e-commerce.birnima.uz${product.image![0]}",
+                                      width: double.infinity,
+                                      height: 120,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          product.name ?? '',
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 16,
+                                          ),
+                                        ),
+                                        const SizedBox(height: 4),
+                                        Text(
+                                          product.shortDescription ?? '',
+                                          style: const TextStyle(
+                                            fontSize: 14,
+                                            color: Colors.grey,
+                                          ),
+                                        ),
+                                        const SizedBox(height: 4),
+                                        Text(
+                                          '\$${product.price}',
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 16,
+                                            color: Colors.green,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        );
+                      } else {
+                        return const Center(
+                          child: Text(
+                              "No products available"), // Mahsulotlar mavjud emas
+                        );
+                      }
+                    },
+                  ),
+                ),
+              ],
+            ),
+          )
+        ],
       ),
     );
   }

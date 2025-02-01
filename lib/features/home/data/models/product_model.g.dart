@@ -7,47 +7,93 @@ part of 'product_model.dart';
 // **************************************************************************
 
 ProductModel _$ProductModelFromJson(Map<String, dynamic> json) => ProductModel(
-      products: (json['data'] as List<dynamic>?)
+      data: (json['data'] as List<dynamic>?)
           ?.map((e) => ProductModelData.fromJson(e as Map<String, dynamic>))
           .toList(),
-      paginationModel: json['pagination'] == null
+      pagination: json['pagination'] == null
           ? null
-          : PaginationModel.fromJson(
+          : ProductPaginationModel.fromJson(
               json['pagination'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$ProductModelToJson(ProductModel instance) =>
     <String, dynamic>{
-      'data': instance.products,
-      'pagination': instance.paginationModel,
+      'data': instance.data,
+      'pagination': instance.pagination,
     };
 
 ProductModelData _$ProductModelDataFromJson(Map<String, dynamic> json) =>
     ProductModelData(
-      id: json['id'] as String?,
+      id: json['_id'] as String?,
       name: json['name'] as String?,
+      description: json['description'] as String?,
       shortDescription: json['short_description'] as String?,
       icon: json['icon'] as String?,
-      image: json['image'] as String?,
+      image:
+          (json['image'] as List<dynamic>?)?.map((e) => e as String).toList(),
+      quintity: (json['quintity'] as num?)?.toInt(),
       price: (json['price'] as num?)?.toDouble(),
+      discount: (json['discount'] as num?)?.toInt(),
       rating: (json['rating'] as num?)?.toDouble(),
-      colors: (json['colors'] as num?)?.toDouble(),
+      ratingCount: (json['rating_count'] as num?)?.toInt(),
+      colors: json['colors'] == null
+          ? null
+          : Colors.fromJson(json['colors'] as Map<String, dynamic>),
+      size: json['size'] == null
+          ? null
+          : Size.fromJson(json['size'] as Map<String, dynamic>),
+      category: json['category'] as String?,
     );
 
 Map<String, dynamic> _$ProductModelDataToJson(ProductModelData instance) =>
     <String, dynamic>{
-      'id': instance.id,
+      '_id': instance.id,
       'name': instance.name,
+      'description': instance.description,
       'short_description': instance.shortDescription,
       'icon': instance.icon,
       'image': instance.image,
+      'quintity': instance.quintity,
       'price': instance.price,
+      'discount': instance.discount,
       'rating': instance.rating,
+      'rating_count': instance.ratingCount,
       'colors': instance.colors,
+      'size': instance.size,
+      'category': instance.category,
     };
 
-PaginationModel _$PaginationModelFromJson(Map<String, dynamic> json) =>
-    PaginationModel(
+Colors _$ColorsFromJson(Map<String, dynamic> json) => Colors(
+      name: json['name'] as String?,
+      colorHexFlutter: json['color_hex_flutter'] as String?,
+    );
+
+Map<String, dynamic> _$ColorsToJson(Colors instance) => <String, dynamic>{
+      'name': instance.name,
+      'color_hex_flutter': instance.colorHexFlutter,
+    };
+
+Size _$SizeFromJson(Map<String, dynamic> json) => Size(
+      width: (json['width'] as num?)?.toInt(),
+      depth: (json['depth'] as num?)?.toInt(),
+      heigth: (json['heigth'] as num?)?.toInt(),
+      seatWidth: (json['seat_width'] as num?)?.toInt(),
+      seatDepth: (json['seat_depth'] as num?)?.toInt(),
+      seatHeigth: (json['seat_heigth'] as num?)?.toInt(),
+    );
+
+Map<String, dynamic> _$SizeToJson(Size instance) => <String, dynamic>{
+      'width': instance.width,
+      'depth': instance.depth,
+      'heigth': instance.heigth,
+      'seat_width': instance.seatWidth,
+      'seat_depth': instance.seatDepth,
+      'seat_heigth': instance.seatHeigth,
+    };
+
+ProductPaginationModel _$ProductPaginationModelFromJson(
+        Map<String, dynamic> json) =>
+    ProductPaginationModel(
       totalRecords: (json['total_records'] as num?)?.toInt(),
       currentPage: (json['current_page'] as num?)?.toInt(),
       totalPages: (json['total_pages'] as num?)?.toInt(),
@@ -55,7 +101,8 @@ PaginationModel _$PaginationModelFromJson(Map<String, dynamic> json) =>
       prevPage: json['prev_page'],
     );
 
-Map<String, dynamic> _$PaginationModelToJson(PaginationModel instance) =>
+Map<String, dynamic> _$ProductPaginationModelToJson(
+        ProductPaginationModel instance) =>
     <String, dynamic>{
       'total_records': instance.totalRecords,
       'current_page': instance.currentPage,

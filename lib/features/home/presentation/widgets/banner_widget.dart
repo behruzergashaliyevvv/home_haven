@@ -5,7 +5,6 @@ Widget buildCarouselItem({
   required BannerData bannerData,
 }) {
   return Container(
-    // margin: EdgeInsets.all(8),
     decoration: BoxDecoration(
       image: DecorationImage(
         fit: BoxFit.cover,
