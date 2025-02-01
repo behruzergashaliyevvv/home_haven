@@ -57,7 +57,6 @@
 // product importl
 import 'package:dars_3/features/home/data/datasource/product_remote_data_source.dart';
 import 'package:dars_3/features/home/data/repositories/product_repo_ompl.dart';
-import 'package:dars_3/features/home/domain/repositories/product_repo.dart';
 import 'package:dars_3/features/home/domain/usecases/get_products_usecase.dart';
 import 'package:dars_3/features/home/presentation/controllers/pro_provider.dart';
 import 'package:dio/dio.dart';
